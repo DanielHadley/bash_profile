@@ -1,14 +1,33 @@
-# alias test
+# local network
+# Mount p
+alias mp='open "smb://ad\u0166843@files.business.utah.edu/shares”; cl /Volumes/shares/PIL/'
+
+alias p='cl /Volumes/shares/PIL/'
+
+
+# Alias for color and human readable output
+alias ls='ls -Ghp'
+
+# Easy open 
 alias o='open'
+alias st='open -a "Sublime Text"'
 
-cl() { cd "$1" && ls; }
+# Function for cd and listing
+function cl () {
+    cd $1
+    ls
+}
 
-alias gh='cd /Users/DHadley/Github/; ls'
 
-alias p='mount_smbfs //dhadley@fileshare1/Departments2 ~/P; cd ~/P/Somerstat\ Data/; ls'
-alias k='mount_smbfs //dhadley@fileshare1/Departments ~/K; cd ~/K/Somerstat/Common; ls'
-alias g='mount_smbfs //dhadley@fileshare1/GIS ~/G; cd ~/G/gis_data/; ls'
+# Github
+alias gh='cd /Users/danielhadley/Github; ls'
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
 
+
+### Touch types
 # Makes a new R file with the current working directory
 # First argument is the R's file name
 # Second argument is a .csv file, which it adds to the read.csv line 
@@ -17,21 +36,22 @@ echo -e '# Created By Daniel Hadley '$(date)' #\nsetwd("'$PWD'")\n#\n# Load Data
 open $1.R
 }
 
-# sublime
-alias st='open -a "Sublime Text 2"'
 
-# Git hub
-# The first argument is optional
-# Defaults are in the {:-}
-gc() {
-  git commit -am ${1:-"alias update"} && git push
+# combine touch and st
+touchst () {
+	touch "$1"
+	st "$1"
 }
 
 
-# Set CLICOLOR if you want Ansi Colors in iTerm2 
-export CLICOLOR=1
-# Set colors to match iTerm2 Terminal Colors
-export TERM=xterm-256color
+# Creates a note with the date
+touchd () {
+	touch "$(date +'%Y-%m-%d')_$1"
+	st "$(date +'%Y-%m-%d')_$1"
+}
 
-# added by Anaconda 2.3.0 installer
-export PATH="/Users/DHadley/anaconda/bin:$PATH"
+
+mkdird () {
+	mkdir "$(date +'%Y-%m-%d')_$1"
+	cl "$(date +'%Y-%m-%d')_$1"
+}
