@@ -1,6 +1,6 @@
 # local network
 # Mount p
-alias mp='open "smb://ad\u0166843@files.business.utah.edu/shares”; cl /Volumes/shares/PIL/'
+alias opp='open "smb://ad\u0166843@files.business.utah.edu/shares"'
 
 alias p='cl /Volumes/shares/PIL/'
 
@@ -13,10 +13,7 @@ alias o='open'
 alias st='open -a "Sublime Text"'
 
 # Function for cd and listing
-function cl () {
-    cd $1
-    ls
-}
+cl () { cd "$@" && ls; }
 
 
 # Github
@@ -55,3 +52,5 @@ mkdird () {
 	mkdir "$(date +'%Y-%m-%d')_$1"
 	cl "$(date +'%Y-%m-%d')_$1"
 }
+# added by Anaconda3 4.1.1 installer
+export PATH="//anaconda/bin:$PATH"
