@@ -9,6 +9,11 @@ export ZSH=/Users/danielhadley/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
 
+# I used this advice to get the user to danielhadley:
+# for those using agnoster theme. 
+# Edit agnoster.zsh-theme and find $user@%m then delete @%m. save, open your terminal
+# https://github.com/robbyrussell/oh-my-zsh/issues/2033
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -52,6 +57,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
+plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,3 +89,62 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# EVERYTHING from by .bash_profile below
+# local network
+# Mount p
+alias opp='open "smb://ad\u0166843@files.business.utah.edu/shares"'
+
+alias p='cl /Volumes/shares/PIL/'
+
+
+# Alias for color and human readable output
+alias ls='ls -Ghp'
+
+# Easy open 
+alias o='open'
+alias st='open -a "Sublime Text"'
+
+# Function for cd and listing
+cl () { cd "$@" && ls; }
+
+
+# Github
+alias gh='cd /Users/danielhadley/Github; ls'
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+
+
+### Touch types
+# Makes a new R file with the current working directory
+# First argument is the R's file name
+# Second argument is a .csv file, which it adds to the read.csv line 
+touchr() { touch $1.R
+echo -e '# Created By Daniel Hadley '$(date)' #\nsetwd("'$PWD'")\n#\n# Load Data\nd <- read.csv("./'$2'")' > $1.R
+open $1.R
+}
+
+
+# combine touch and st
+touchst () {
+	touch "$1"
+	st "$1"
+}
+
+
+# Creates a note with the date
+touchd () {
+	touch "$(date +'%Y-%m-%d')_$1"
+	st "$(date +'%Y-%m-%d')_$1"
+}
+
+
+mkdird () {
+	mkdir "$(date +'%Y-%m-%d')_$1"
+	cl "$(date +'%Y-%m-%d')_$1"
+}
+# added by Anaconda3 4.1.1 installer
+export PATH="//anaconda/bin:$PATH"
+

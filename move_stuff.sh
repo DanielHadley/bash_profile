@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp ./bash_profile ~/.bash_profile
+cp ~/.zshrc /Users/danielhadley/Github/bash_profile/.zshrc
