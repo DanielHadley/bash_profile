@@ -125,12 +125,10 @@ export TERM=xterm-256color
 # And to get auto suggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# local network
-# Mount p
-alias opp='open "smb://ad\u0166843@files.business.utah.edu/shares"'
 
-alias p='cl /Volumes/shares/PIL/'
 
+# Aliases and other things I have added
+# EVERYTHING from by .bash_profile below
 
 # Alias for color and human readable output
 alias ls='ls -Ghp'
@@ -150,13 +148,26 @@ alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
 
+# Google drive
+alias gd='cd /Users/danielhadley/Google\ Drive/SI/; ls'
+
+alias ds='cd /Users/danielhadley/Google\ Drive\ File\ Stream/My\ Drive/SI/DataScience/; ls'
+
+alias adp='cd /Users/danielhadley/Google\ Drive\ File\ Stream/My\ Drive/SI/DataScience/ADP/; ls'
+
+alias adpd='open https://drive.google.com/drive/folders/0B7zkyECRdPKvVV80S0NCWFNMX3c'
+
+
+# Notes
+alias nb='cd /Users/danielhadley/Google\ Drive\ File\ Stream/My\ Drive/Notes/; ls'
+
 
 ### Touch types
 # Makes a new R file with the current working directory
 # First argument is the R's file name
 # Second argument is a .csv file, which it adds to the read.csv line 
 touchr() { touch $1.R
-echo -e '# Created By Daniel Hadley '$(date)' #\nsetwd("'$PWD'")\n#\n# Load Data\nd <- read.csv("./'$2'")' > $1.R
+echo -e '# Created By Daniel Hadley '$(date)' #\nsetwd("'$PWD'")\n#\nlibrary(tidyverse)\n# Load Data\nd <- read_csv("./'$2'")' > $1.R
 open $1.R
 }
 
@@ -181,3 +192,17 @@ mkdird () {
 }
 # added by Anaconda3 4.1.1 installer
 export PATH="//anaconda/bin:$PATH"
+
+
+# Searches git
+# https://stackoverflow.com/questions/11543593/grep-for-stuff-in-multiple-git-repositories
+ggrep() {
+    find . -type d -name .git | while read line; do
+        (
+        cd $line/..
+        cwd=$(pwd)
+        echo "$(tput setaf 2)$cwd$(tput sgr0)"
+        git grep -n "$@"
+        )
+    done
+}
